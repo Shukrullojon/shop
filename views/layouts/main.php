@@ -61,8 +61,10 @@ AppAsset::register($this);
     <nav class="menu">
         <div class="container">
             <div class="brand">
-                <a href="#">
-                    <img src="images/logo.png" alt="Magz Logo">
+                <a href="<?= \yii\helpers\Url::home() ?>">
+                    <?php
+                        echo Html::img('@web/images/logo.png')
+                    ?>
                 </a>
             </div>
             <div class="mobile-toggle">
@@ -76,9 +78,9 @@ AppAsset::register($this);
                     <li class="for-tablet nav-title"><a>Menu</a></li>
                     <li class="for-tablet"><a href="login.html">Login</a></li>
                     <li class="for-tablet"><a href="register.html">Register</a></li>
-                    <li><a href="category.html">Bosh saxifa</a></li>
+                    <li><a href="<?= \yii\helpers\Url::home() ?>">Bosh saxifa</a></li>
                     <li class="dropdown magz-dropdown">
-                        <a href="category.html">Kategoriyalar<i class="ion-ios-arrow-right"></i></a>
+                        <a href="#">Kategoriyalar<i class="ion-ios-arrow-right"></i></a>
                         <ul class="dropdown-menu">
                             <?= \app\components\MenuWidget::widget(['tpl'=>'menu']) ?>
                         </ul>

@@ -1,18 +1,19 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Category;
-use app\models\CategorySearch;
+use app\models\ProductPagination;
+use app\models\ProductPaginationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
- * CategoryController implements the CRUD actions for Category model.
+ * ProductPaginationController implements the CRUD actions for ProductPagination model.
  */
-class CategoryController extends Controller
+class ProductPaginationController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +31,12 @@ class CategoryController extends Controller
     }
 
     /**
-     * Lists all Category models.
+     * Lists all ProductPagination models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel = new ProductPaginationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +46,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a single Category model.
+     * Displays a single ProductPagination model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,15 +59,28 @@ class CategoryController extends Controller
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new ProductPagination model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new ProductPagination();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $imageName=$model->name;
+            $model->imageFile=UploadedFile::getInstance($model,'imageFile');
+            if($model->imageFile->extension=='jpg' || $model->imageFile->extension=='png' || $model->imageFile->extension=='jpeg'){
+                $model->imageFile->saveAs('images/pro_pagination/'.$imageName.'.'.$model->imageFile->extension);
+                $model->image=$imageName.'.'.$model->imageFile->extension;
+                if($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }else{
+                echo "Rasmni formatini xato kiritdingiz";
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -76,7 +90,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Updates an existing Category model.
+     * Updates an existing ProductPagination model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +110,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing ProductPagination model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +124,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the ProductPagination model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Category the loaded model
+     * @return ProductPagination the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = ProductPagination::findOne($id)) !== null) {
             return $model;
         }
 

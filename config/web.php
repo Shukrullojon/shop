@@ -17,7 +17,7 @@ $config = [
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'rAonqbAzXv-cx7Eyuw-nBIRxLtSBzk4-',
+            'cookieValidationKey' => 'ZjeYEEfkUxGhQU2N0X62gU3p6yGSoUZq',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -31,9 +31,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -50,6 +47,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'category/<id:\d+>'=>'category/view',
+                'product/<id:\d+>'=>'site/product',
             ],
         ],
     ],
@@ -62,12 +61,13 @@ $config = [
             'controllerMap' => [
                 'assignment' => [
                     'class' => 'mdm\admin\controllers\AssignmentController',
+                    /* 'userClassName' => 'app\models\User', */
                     'idField' => 'id',
                     'usernameField' => 'username',
                 ],
             ],
             'layout' => 'left-menu',
-            'mainLayout' => '@app/views/layouts/main.php',
+            'mainLayout' => '@app/modules/admin/views/layouts/main.php',
         ]
     ],
     'as access' => [
@@ -77,7 +77,6 @@ $config = [
             'admin/*',
             'rbac/*',
             'gii/*',
-            'category/*',
         ]
     ],
     'params' => $params,
