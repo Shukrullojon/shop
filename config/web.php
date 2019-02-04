@@ -47,8 +47,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'go'=>'site/go',
                 'category/<id:\d+>'=>'category/view',
                 'product/<id:\d+>'=>'site/product',
+                'category/<id:\d+>'=>'site/category',
             ],
         ],
     ],
@@ -77,6 +79,7 @@ $config = [
             'admin/*',
             'rbac/*',
             'gii/*',
+            'product/*',
         ]
     ],
     'params' => $params,

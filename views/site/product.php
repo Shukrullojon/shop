@@ -12,10 +12,8 @@
                         <article class="col-md-12 article-list">
                         <div class="inner">
                             <figure>
-                                <a href="single.html">
-                                    <?php
-                                        echo Html::img('@web/images/product/')
-                                    ?>
+                                <a href="#">
+                                    <img src="/images/product/<?= $value['image'] ?>">
                                 </a>
                             </figure>
                             <div class="details">

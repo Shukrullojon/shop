@@ -104,7 +104,7 @@
                     <article class="article col-md-12">
                         <div class="inner">
                             <figure>
-                                <a href="<?=Url::to(['site/product','id'=>$value['id']])?>" style="padding: 0px 0px">
+                                <a href="<?=Url::to(['product/index','id'=>$value['id']])?>" style="padding: 0px 0px">
                                     <img src="images/product/<?= $value['image'] ?>" class="img-responsive" alt="Sample Article" >
                                 </a>
                             </figure>

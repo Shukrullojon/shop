@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Category;
+use app\models\Go;
+use app\models\Help;
 use app\models\Product;
 use Yii;
 use yii\filters\AccessControl;
@@ -74,30 +77,41 @@ class SiteController extends Controller
                 $sum .= "$value".",";
             }
         }
-
         //$sql="select * from product where id in($sum)";
         //$pro=Product::find()->where(['id'=>$sum])->all();
         //$pro=Product::findBySql($sql)->all();
         $pro=Product::find()->limit(24)->asArray()->all();
         return $this->render('index',['product'=>$product,'bestpro'=>$bestpro,'carousel'=>$carousel,'pro'=>$pro]);
     }
-
+    // Kategoriy page
+    public function actionCategory($id){
+        $cat=Product::find()->asArray()->where(['category_id'=>$id])->all();
+        $category=Category::findOne($id);
+        $bestpro=Product::find()->asArray()->orderBy(['count_view'=>SORT_DESC])->limit(20)->all();
+        return $this->render('category',['category'=>$cat,'bestpro'=>$bestpro,'categorys'=>$category]);
+    }
+    // Mahsulot
     public function actionProduct($id){
         $product=Product::find()->where(['id'=>$id])->asArray()->all();
         return $this->render('product',['product'=>$product]);
     }
+    // Yetqazib berish
+    public function actionGo(){
+        $go=Go::find()->asArray()->all();
+        return $this->render('go',['go'=>$go]);
+    }
+    // yordam
+    public function actionHelp(){
+        $help=Help::find()->asArray()->all();
+        return $this->render('help',['help'=>$help]);
+    }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
+    // Login
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -109,43 +123,10 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }

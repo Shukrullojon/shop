@@ -1,14 +1,8 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -33,7 +27,7 @@ AppAsset::register($this);
                 <div class="col-md-3 col-sm-12">
                     <div class="brand">
                         <a href="index.html">
-                            <img src="images/logo.png" alt="Magz Logo">
+                            <img src="/images/logo.png" alt="Magz Logo">
                         </a>
                     </div>
                 </div>
@@ -178,8 +172,8 @@ AppAsset::register($this);
                     </li>
                     <li class="dropdown magz-dropdown"><a href="#">Foydalanish <i class="ion-ios-arrow-right"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="icon ion-card "></i>Tetkazib berish</a></li>
-                            <li><a href="#"><i class="icon ion-help-circled"></i>Yordam</a></li>
+                            <li><a href="<?= Url::to(['site/go']) ?>"><i class="icon ion-card "></i>Yetkazib berish</a></li>
+                            <li><a href="<?= Url::to(['site/help']) ?>"><i class="icon ion-help-circled"></i>Yordam</a></li>
                             <li><a href="#"><i class="icon ion-person"></i>Kabinet</a></li>
                             <li><a href="#"><i class="icon ion-chatbox"></i> Kamentariyalar</a></li>
                             <li><a href="#"><i class="icon ion-log-out"></i> Chiqish</a></li>
@@ -202,7 +196,7 @@ AppAsset::register($this);
                     <h1 class="block-title">Mypro.uz haqida</h1>
                     <div class="block-body">
                         <figure class="foot-logo">
-                            <img src="images/logo-light.png" class="img-responsive" alt="Logo">
+                            <img src="/images/logo-light.png" class="img-responsive" alt="Logo">
                         </figure>
                         <p class="brand-description">
                             Online Magazin

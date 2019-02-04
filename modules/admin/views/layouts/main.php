@@ -28,8 +28,10 @@ AdminAsset::register($this);
         <ul class="nav navbar-nav">
             <?php  ?>
             <li><a href="<?= Url::to(['product/index']) ?>">Mahsulotlar</a></li>
-            <li><a href="<?= Url::to(['product-pagination/index']) ?>">Paginatsiya</a></li>
+            <li><a href="<?= Url::to(['product-pagination/index']) ?>">Karusel</a></li>
             <li><a href="<?= Url::to(['category/index']) ?>">Kategoriyalar</a></li>
+            <li><a href="<?= Url::to(['go/index']) ?>">Yetqazib berish</a></li>
+            <li><a href="<?= Url::to(['help/index']) ?>">Yordam</a></li>
         </ul>
     </div>
 </nav>

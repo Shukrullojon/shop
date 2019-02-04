@@ -13,7 +13,7 @@
 
 <?php if(!isset($category['childs'])): ?>
     <li>
-        <a href="<?= \yii\helpers\Url::to(['category/view','id'=>$category['id']]) ?>">
+        <a href="<?= \yii\helpers\Url::to(['site/category','id'=>$category['id']]) ?>">
             <?= $category['name'] ?>
         </a>
     </li>
