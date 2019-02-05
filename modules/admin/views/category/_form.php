@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Category;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 ?>
 
@@ -14,6 +15,15 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
+    <?php
+        $cat=Category::find()->asArray()->all();
+        $p=[];
+        foreach($cat as $item=>$value)
+        {
+            $p[$item]['id']=$value['id'];
+            $p[$item]['name']=$value['name'];
+        }
+    ?>
 
     <?= $form->field($model, 'part')->dropDownList(
             ArrayHelper::map(Category::find()->all(),'id','name'),

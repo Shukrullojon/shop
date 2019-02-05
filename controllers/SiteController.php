@@ -8,6 +8,7 @@ use app\models\Help;
 use app\models\Product;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -104,6 +105,50 @@ class SiteController extends Controller
     public function actionHelp(){
         $help=Help::find()->asArray()->all();
         return $this->render('help',['help'=>$help]);
+    }
+    // search
+    public function actionSearch(){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $search = $_GET['search'];
+        $output='';
+        if(!$search=='') {
+            $sql = "select * from product where name LIKE '%".$search."%'";
+            $ser = Product::findBySql($sql)->asArray()->all();
+            foreach($ser as $item=>$value){
+            $output .= "
+                <div class='panel panel-info' style='margin-bottom: 0px; height: 100px'>
+                    <div class='panel-heading'></div>
+                    <div class='panel-body'>
+                        <div class='row'>
+                            <div class='col-md-3 col-xs-12'>
+                                <a href='".Url::to(['site/product','id'=>$value['id']])."'>
+                                    <img src='/images/product/".$value['image']."' style='height: 60px'>
+                                </a>
+                            </div>
+                            <div class='col-md-6 col-xs-12'>
+                                <a href='".Url::to(['site/product','id'=>$value['id']])."'>
+                                    <p>".$value['name']."</p>
+                                    <p>".$value['price']." so'm</p>
+                                </a>
+                            </div>
+                            <div class='col-md-3 col-xs-12'>
+                                  <a class='btn btn-primary more' href='single.html'>
+                                        <div>Tanlash</div>
+                                        <div><i class='ion-ios-arrow-thin-right'></i></div>
+                                  </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ";
+            }
+        }else{
+            $output .= "";
+        }
+        return[
+            'status' => 'success',
+            'data' => $output
+        ];
     }
 
     // Login

@@ -34,12 +34,12 @@
                                 <article class="article col-md-12">
                                     <div class="inner">
                                         <figure>
-                                            <a href="single.html">
+                                            <a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>">
                                                 <img src="images/product/<?= $value['image'] ?>" alt="Sample Article">
                                             </a>
                                         </figure>
                                         <div class="padding">
-                                            <h2><a href="single.html"><?= $value['name'] ?></a></h2>
+                                            <h2><a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>"><?= $value['name'] ?></a></h2>
                                             <p><?= $value['price'] ?> ming</p>
                                             <footer>
                                                 <a href="#" class="love"><i class="ion-android-favorite-outline"></i><div><?= $value['like'] ?></div></a>
@@ -73,12 +73,12 @@
                                 <article class="article-mini">
                             <div class="inner">
                                 <figure>
-                                    <a href="single.html">
+                                    <a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>">
                                         <img src="images/product/<?= $value['image'] ?>" alt="Sample Article">
                                     </a>
                                 </figure>
                                 <div class="padding">
-                                    <h1><a href="single.html"><?= $value['name'] ?></a></h1>
+                                    <h1><a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>"><?= $value['name'] ?></a></h1>
                                     <num><?= $value['count_view'] ?></num> || <num><?= $value['price'] ?> ming</num><br>
                                     <a href="single.html">
                                         Savatchaga qo'shish
@@ -104,12 +104,12 @@
                     <article class="article col-md-12">
                         <div class="inner">
                             <figure>
-                                <a href="<?=Url::to(['product/index','id'=>$value['id']])?>" style="padding: 0px 0px">
+                                <a href="<?=Url::to(['site/product','id'=>$value['id']])?>" style="padding: 0px 0px">
                                     <img src="images/product/<?= $value['image'] ?>" class="img-responsive" alt="Sample Article" >
                                 </a>
                             </figure>
                             <div class="padding">
-                                <h2><a href="single.html"><?= $value['name'] ?></a></h2>
+                                <h2 style="font-size: 15px"><a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>"><?= $value['name'] ?></a></h2>
                                 <footer>
                                     <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div><?= $value['count_view'] ?></div></a>
                                     <a class="btn btn-primary more" href="single.html">
@@ -125,4 +125,20 @@
         <?php endif; ?>
     </div>
 </div>
-
+<?php
+$script =<<< JS
+    $(document).on("keyup","#search",function(){
+        var a = $(this).val();
+        $.ajax({
+            url:"index.php/site/search",
+            method:"GET",
+            data:{search:a},
+            dataType:"json",
+            success:function(data){
+              $("#result").html(data.data);
+            }
+        })
+    })
+JS;
+$this->registerJs($script);
+?>

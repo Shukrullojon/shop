@@ -26,7 +26,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-md-3 col-sm-12">
                     <div class="brand">
-                        <a href="index.html">
+                        <a href="<?= Url::home() ?>">
                             <img src="/images/logo.png" alt="Magz Logo">
                         </a>
                     </div>
@@ -35,13 +35,16 @@ AppAsset::register($this);
                     <form class="search" autocomplete="off">
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" name="q" class="form-control" placeholder="qidiruv">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="ion-search"></i></button>
-                                </div>
+                                <input type="text" name="q" id="search" class="form-control" placeholder="qidiruv" data-toggle="modal" data-target="#myModal">
                             </div>
                         </div>
                     </form>
+
+                    <div class="modal" id="myModal" style="margin-top: 30px">
+                        <div class="modal-dialog">
+                            <p id="result"><p/>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3 col-sm-12 text-right">
                     <ul class="nav-icons">
