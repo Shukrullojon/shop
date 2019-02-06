@@ -32,6 +32,7 @@ AdminAsset::register($this);
             <li><a href="<?= Url::to(['category/index']) ?>">Kategoriyalar</a></li>
             <li><a href="<?= Url::to(['go/index']) ?>">Yetqazib berish</a></li>
             <li><a href="<?= Url::to(['help/index']) ?>">Yordam</a></li>
+            <li><a href="<?= Url::to(['default/signup']) ?>">Sign up</a></li>
         </ul>
     </div>
 </nav>

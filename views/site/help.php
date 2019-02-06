@@ -1,4 +1,9 @@
 <?php
+    $session = Yii::$app->session;
+    echo "<pre>";
+    print_r($_SESSION['shopping_cart']);
+    $session=Yii::$app->session->destroy();
+    die();
     if(count($help)){
 ?>
 <section>

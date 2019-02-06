@@ -182,6 +182,73 @@ AppAsset::register($this);
                             <li><a href="#"><i class="icon ion-log-out"></i> Chiqish</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">
+                            <p id="cart_count" style="display: inline-block">
+                                <?php
+                                    if(isset($_SESSION['shopping_cart'])){
+                                        echo count($_SESSION['shopping_cart']);
+                                    }else{
+                                        echo "0";
+                                    }
+                                ?>
+                            </p>
+                            <i style="color: blue;" class="glyphicon glyphicon-shopping-cart "></i></a>
+                        <div class="dropdown-menu megamenu">
+                            <div class="megamenu-inner">
+                                <div class="row" id="cart_result">
+                                    <?php
+                                        if(isset($_SESSION['shopping_cart'])){
+                                            $output='';
+                                            $total='';
+                                            $number='';
+                                            foreach($_SESSION['shopping_cart'] as $item=>$value){
+                                                $output .= '
+                                                    <div class="col-md-3">
+                                                        <article class="article-mini">
+                                                            <div class="inner">
+                                                                <figure>
+                                                                    <img src="/images/product/'.$value["product_image"].'" alt="Sample Article">
+                                                                </figure>
+                                                                <div class="padding">
+                                                                    <h1><a href="'.Url::to(['site/product','id'=>$value['product_id']]).'">
+                                                                        '.$value["product_name"].'
+                                                                    </a></h1>
+                                                                    <h1>1 tasi: '.$value['product_price'].'</h1>
+                                                                    <h1>soni: '.$value['product_quantity'].'</h1>
+                                                                    <h1>Umumiy: '.$value['product_price']*$value['product_quantity'].'</h1>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                ';
+                                                $total += $value['product_price']*$value['product_quantity'];
+                                                $number += $value['product_quantity'];
+                                            }
+                                            $output .= '
+                                                    <table class="table table-hover">
+                                                        <tr>
+                                                            <th>Mahsulotlar soni</th>
+                                                            <th>Umumiy xarid miqdori</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>'.$number.'</td>
+                                                            <td>'.$total.'</td>
+                                                            <td>
+                                                                <a href="'.Url::to(['site/shop']).'" class="btn btn-success">Xarid qilish</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                ';
+                                            echo $output;
+                                        }else{
+                                            echo "<h3 style='color: red; text-align: center'>Hech qanday xarid amalga oshirilmadi</h3>";
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

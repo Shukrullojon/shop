@@ -26,10 +26,6 @@ class CategoryController extends Controller
         ];
     }
 
-    /**
-     * Lists all Category models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new CategorySearch();

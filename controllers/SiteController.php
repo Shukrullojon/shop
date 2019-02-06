@@ -150,6 +150,110 @@ class SiteController extends Controller
             'data' => $output
         ];
     }
+    public function actionCart(){
+        session_start();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $action=$_GET['action'];
+        if($action=='create'){
+            $product_id=$_GET['product_id'];
+            $product_name=$_GET['product_name'];
+            $product_price=$_GET['product_price'];
+            $product_image=$_GET['product_image'];
+            if(!empty($_SESSION['shopping_cart'])) {
+                $is_available = 0;
+                foreach ($_SESSION['shopping_cart'] as $key => $value) {
+                    if ($_SESSION['shopping_cart'][$key]['product_id'] == $product_id) {
+                        $is_available++;
+                        $_SESSION['shopping_cart'][$key]['product_quantity'] += 1;
+                    }
+                }
+                if ($is_available < 1) {
+                    $item_array = array(
+                        'product_id' => $product_id,
+                        'product_name' => $product_name,
+                        'product_price' => $product_price,
+                        'product_image' => $product_image,
+                        'product_quantity' => 1,
+                    );
+                    $_SESSION['shopping_cart'][] = $item_array;
+                }
+            }else{
+                $item_array = array(
+                    array
+                    (
+                        'product_id' => $product_id,
+                        'product_name' => $product_name,
+                        'product_price' => $product_price,
+                        'product_image' => $product_image,
+                        'product_quantity' => 1,
+                    ),
+                );
+                $_SESSION['shopping_cart'] = $item_array;
+            }
+        }
+        $count=count($_SESSION['shopping_cart']);
+        $output='';
+        $number='';
+        $total='';
+        foreach($_SESSION['shopping_cart'] as $item=>$value){
+            $output .= '
+            <div class="col-md-3">
+                <article class="article-mini">
+                    <div class="inner">
+                        <figure>
+                            <img src="/images/product/'.$value["product_image"].'" alt="Sample Article">
+                        </figure>
+                        <div class="padding">
+                            <h1><a href="'.Url::to(['site/product','id'=>$value['product_id']]).'">
+                                '.$value["product_name"].'
+                            </a></h1>
+                            <h1>1 tasi: '.$value['product_price'].'</h1>
+                            <h1>soni: '.$value['product_quantity'].'</h1>
+                            <h1>Umumiy: '.$value['product_price']*$value['product_quantity'].'</h1>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        ';
+            $total += $value['product_price']*$value['product_quantity'];
+            $number += $value['product_quantity'];
+        }
+        $output .= '
+            <table class="table table-hover">
+                <tr>
+                    <th>Mahsulotlar soni</th>
+                    <th>Umumiy xarid miqdori</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>'.$number.'</td>
+                    <td>'.$total.'</td>
+                    <td>
+                        <a href="'.Url::to(['site/shop']).'" class="btn btn-success">Xarid qilish</a>
+                    </td>
+                </tr>
+            </table>
+        ';
+        return [
+            'count'=>$count,
+            'output'=>$output,
+        ];
+
+    }
+    public function actionShop(){
+        return $this->render('shop');
+    }
+    public function actionCheckout(){
+        return $this->render('checkout');
+    }
+    // Tahrirlash product delete and change product count
+    public function actionDel(){
+        session_start();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $action=$_GET['action'];
+        print_r($action);
+        die();
+    }
 
     // Login
     public function actionLogin()

@@ -112,10 +112,10 @@
                                 <h2 style="font-size: 15px"><a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>"><?= $value['name'] ?></a></h2>
                                 <footer>
                                     <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div><?= $value['count_view'] ?></div></a>
-                                    <a class="btn btn-primary more" href="single.html">
-                                        <div>Savatchaga qo'shish</div>
-                                        <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                    </a>
+                                    <input type="hidden" name="hidden_name" id="name<?= $value['id'] ?>" value="<?= $value['name'] ?>">
+                                    <input type="hidden" name="hidden_price" id="price<?= $value['id'] ?>" value="<?= $value['price']?>">
+                                    <input type="hidden" name="image_hidden" id="image<?= $value['id'] ?>" value="<?= $value['image'] ?>">
+                                    <input type="button" class="btn btn-primary more add_cart_btn" value="Savatchaga qo'shish" id="<?= $value['id'] ?>">
                                 </footer>
                             </div>
                         </div>
@@ -138,6 +138,30 @@ $script =<<< JS
               $("#result").html(data.data);
             }
         })
+    })
+    $(document).on("click",".add_cart_btn",function(){
+        var product_id=$(this).attr("id");
+        var product_name=$("#name"+product_id).val();
+        var product_price=$("#price"+product_id).val();
+        var product_image=$("#image"+product_id).val();
+        var action="create";
+        $.ajax({
+            url:"index.php/site/cart",
+            method:"GET",
+            data:
+            {
+              product_id:product_id,
+              product_name:product_name,
+              product_price:product_price,
+              product_image:product_image,
+              action:action,  
+            },
+            dataType:"json",
+            success:function(data){
+              $("#cart_count").text(data.count);
+              $("#cart_result").html(data.output);
+            }           
+        });
     })
 JS;
 $this->registerJs($script);
