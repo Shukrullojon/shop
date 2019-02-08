@@ -37,7 +37,7 @@
                                 <?= number_format($value['product_price']*$value['product_quantity']) ?>
                             </td>
                             <td>
-                                <button id="<?= $value['product_id'] ?>" class="product_delete btn btn-danger"><i class="icon ion-android-delete"></i></button>
+                                <a href="<?= Url::to(['site/delete','id'=>$value['product_id']]) ?>" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -74,21 +74,20 @@ $script=<<< JS
         var del=$(this).attr("id");
         var action="delete";
         $.ajax({
-            url:"index.php/site/del",
+            url:"index.php/shop/delete",
             method:"GET",
             data:
             {
                 action:action,
                 del:del,
             },
-            dataType:"text",
+            dataType:"json",
             success:function(data){
               $("#cart_count").text(data.count);
               $("#shop_result").html(data.output);
             }
-
         })
-    })
+    });
 JS;
 $this->registerJs($script);
 ?>

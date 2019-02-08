@@ -51,6 +51,7 @@ $config = [
                 'category/<id:\d+>'=>'category/view',
                 'product/<id:\d+>'=>'site/product',
                 'category/<id:\d+>'=>'site/category',
+                'delete/<id:\d+>'=>'site/delete',
             ],
         ],
     ],

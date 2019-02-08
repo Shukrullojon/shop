@@ -43,10 +43,10 @@
                                             <p><?= $value['price'] ?> ming</p>
                                             <footer>
                                                 <a href="#" class="love"><i class="ion-android-favorite-outline"></i><div><?= $value['like'] ?></div></a>
-                                                <a class="btn btn-primary more" href="single.html">
-                                                    <div>Savatchaga qo'shish</div>
-                                                    <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                                </a>
+                                                <input type="hidden" name="hidden_name" id="name<?= $value['id'] ?>" value="<?= $value['name'] ?>">
+                                                <input type="hidden" name="hidden_price" id="price<?= $value['id'] ?>" value="<?= $value['price']?>">
+                                                <input type="hidden" name="image_hidden" id="image<?= $value['id'] ?>" value="<?= $value['image'] ?>">
+                                                <input type="button" class="btn add_cart_btn" value="Savatchaga qo'shish" id="<?= $value['id'] ?>">
                                             </footer>
                                         </div>
                                     </div>
@@ -80,9 +80,11 @@
                                 <div class="padding">
                                     <h1><a href="<?= Url::to(['site/product','id'=>$value['id']]) ?>"><?= $value['name'] ?></a></h1>
                                     <num><?= $value['count_view'] ?></num> || <num><?= $value['price'] ?> ming</num><br>
-                                    <a href="single.html">
-                                        Savatchaga qo'shish
-                                    </a>
+                                    <input type="hidden" name="hidden_name" id="name<?= $value['id'] ?>" value="<?= $value['name'] ?>">
+                                    <input type="hidden" name="hidden_price" id="price<?= $value['id'] ?>" value="<?= $value['price']?>">
+                                    <input type="hidden" name="image_hidden" id="image<?= $value['id'] ?>" value="<?= $value['image'] ?>">
+                                    <input type="button" class="btn add_cart_btn" value="Savatchaga qo'shish" id="<?= $value['id'] ?>">
+
                                 </div>
                             </div>
                         </article>
@@ -161,6 +163,24 @@ $script =<<< JS
               $("#cart_count").text(data.count);
               $("#cart_result").html(data.output);
             }           
+        });
+    })
+    $(document).on("click",".delete_cart",function(){
+        var del=$(this).attr("id");
+        var action="delete";
+        $.ajax({
+            url:"index.php/site/cart",
+            method:"GET",
+            data:
+            {
+                del:del,
+                action:action,
+            },
+            dataType:"json",
+            success:function(data){
+              $("#cart_count").text(data.count);
+              $("#cart_result").html(data.output);
+            }
         });
     })
 JS;

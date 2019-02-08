@@ -150,6 +150,7 @@ class SiteController extends Controller
             'data' => $output
         ];
     }
+
     public function actionCart(){
         session_start();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -191,6 +192,17 @@ class SiteController extends Controller
                 $_SESSION['shopping_cart'] = $item_array;
             }
         }
+        if($action=='delete'){
+
+            foreach($_SESSION['shopping_cart'] as $key => $value)
+            {
+                $product_id=$_GET['del'];
+                if($_SESSION['shopping_cart'][$key]['product_id']==$product_id){
+                    unset($_SESSION['shopping_cart'][$key]);
+                }
+            }
+
+        }
         $count=count($_SESSION['shopping_cart']);
         $output='';
         $number='';
@@ -210,6 +222,7 @@ class SiteController extends Controller
                             <h1>1 tasi: '.$value['product_price'].'</h1>
                             <h1>soni: '.$value['product_quantity'].'</h1>
                             <h1>Umumiy: '.$value['product_price']*$value['product_quantity'].'</h1>
+                            <button id="'.$value['product_id'].'" class="btn btn-danger delete_cart"><i class="icon ion-android-delete"></i></button>
                         </div>
                     </div>
                 </article>
@@ -240,22 +253,30 @@ class SiteController extends Controller
         ];
 
     }
+    // view/shop.php
     public function actionShop(){
         return $this->render('shop');
     }
+    // Session['shopping_cart'] delete
+    public function actionDelete($id){
+        $b=true;
+        foreach($_SESSION['shopping_cart'] as $key => $value)
+        {
+            $product_id=$id;
+            if($_SESSION['shopping_cart'][$key]['product_id']==$product_id){
+                unset($_SESSION['shopping_cart'][$key]);
+                return $this->render('shop');
+            }else{
+                return $this->render('shop');
+            }
+        }
+
+    }
+
     public function actionCheckout(){
         return $this->render('checkout');
     }
-    // Tahrirlash product delete and change product count
-    public function actionDel(){
-        session_start();
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $action=$_GET['action'];
-        print_r($action);
-        die();
-    }
-
-    // Login
+    //Tahrirlash product delete and change product count
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {

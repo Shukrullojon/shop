@@ -216,6 +216,7 @@ AppAsset::register($this);
                                                                     <h1>1 tasi: '.$value['product_price'].'</h1>
                                                                     <h1>soni: '.$value['product_quantity'].'</h1>
                                                                     <h1>Umumiy: '.$value['product_price']*$value['product_quantity'].'</h1>
+                                                                    <button id="'.$value['product_id'].'" class="btn btn-danger delete_cart"><i class="icon ion-android-delete"></i></button>
                                                                 </div>
                                                             </div>
                                                         </article>
