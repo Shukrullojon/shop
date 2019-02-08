@@ -93,7 +93,10 @@ class SiteController extends Controller
     }
     // Mahsulot
     public function actionProduct($id){
-        $product=Product::find()->where(['id'=>$id])->asArray()->all();
+        //$product=Product::find()->where(['id'=>$id])->asArray()->all();
+        $product = Product::findOne($id);
+        $product->updateCounters(['count_view' => 1]);
+        //$product->save();
         return $this->render('product',['product'=>$product]);
     }
     // Yetqazib berish

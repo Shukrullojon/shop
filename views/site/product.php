@@ -8,25 +8,24 @@
             <div class="col-md-8 text-left">
                 <div class="line"></div>
                 <div class="row">
-                    <?php foreach($product as $value): ?>
                         <article class="col-md-12 article-list">
                         <div class="inner">
                             <figure>
                                 <a href="#">
-                                    <img src="/images/product/<?= $value['image'] ?>">
+                                    <img src="/images/product/<?= $product->image ?>">
                                 </a>
                             </figure>
                             <div class="details">
-                                <h1><a href="single.html"><?= $value['name'] ?></a></h1>
+                                <h1><a href="single.html"><?= $product->name ?></a></h1>
                                 <p>
-                                    <?= $value['title'] ?>
+                                    <?php echo $product->title ?>
                                 </p>
                                 <footer>
-                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div><?= $value['like'] ?></div></a>
-                                    <a class="btn btn-primary more" href="single.html">
-                                        <div>Savatchaga qo'shish</div>
-                                        <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                    </a>
+                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div><?= $product->like ?></div></a>
+                                    <input type="hidden" name="hidden_name" id="name<?= $value->id ?>" value="<?= $product->name ?>">
+                                    <input type="hidden" name="hidden_price" id="price<?= $value->id ?>" value="<?= $product->price?>">
+                                    <input type="hidden" name="image_hidden" id="image<?= $value->id ?>" value="<?= $product->image ?>">
+                                    <input type="button" class="btn add_cart_btn" value="Savatchaga qo'shish" id="<?= $product->id ?>">
                                 </footer>
                             </div>
                         </div>
@@ -37,7 +36,7 @@
                 <aside>
                     <div class="aside-body">
                         <figure class="ads">
-                            <h4><?= $value['name'] ?></h4>
+                            <h4><?= $product->name ?></h4>
                         </figure>
                     </div>
                 </aside>
@@ -56,7 +55,7 @@
             </ul>
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                    <?= $value['description'] ?>
+                    <?= $product->description ?>
                 </div>
                 <div id="menu1" class="tab-pane fade">
                     <h3>Menu 1</h3>
@@ -71,4 +70,3 @@
         <div class="col-md-1"></div>
     </div>
 </section>
-<?php endforeach; ?>

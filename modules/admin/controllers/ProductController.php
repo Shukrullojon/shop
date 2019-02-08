@@ -51,6 +51,7 @@ class ProductController extends Controller
         $model = new Product();
 
         if($model->load(Yii::$app->request->post())) {
+            $model->count_view=0;
             $imageName=$model->name;
             $model->imageFile=UploadedFile::getInstance($model,'imageFile');
             if($model->imageFile->extension=='jpg' || $model->imageFile->extension=='png' || $model->imageFile->extension=='jpeg'){
