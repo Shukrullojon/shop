@@ -49,10 +49,12 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
-
         if($model->load(Yii::$app->request->post())) {
             $model->count_view=0;
-            $imageName=$model->name;
+            $model->like=0;
+            $image = Image::findOne(1);
+            $imageName=$image->sum;
+            $image->updateCounters(['sum' => 1]);
             $model->imageFile=UploadedFile::getInstance($model,'imageFile');
             if($model->imageFile->extension=='jpg' || $model->imageFile->extension=='png' || $model->imageFile->extension=='jpeg'){
                 $model->imageFile->saveAs('images/product/'.$imageName.'.'.$model->imageFile->extension);
@@ -70,13 +72,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Product model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -90,17 +85,14 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Product model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionDelete($id)
     {
+        $product=Product::findOne($id);
+        $img=$product->image;
+        $url="../../../web/images/product/$img";
+        unset($url);
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

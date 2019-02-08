@@ -169,7 +169,7 @@ $script =<<< JS
         var del=$(this).attr("id");
         var action="delete";
         $.ajax({
-            url:"index.php/site/cart",
+            url:"/index.php/site/cart",
             method:"GET",
             data:
             {

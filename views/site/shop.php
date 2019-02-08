@@ -31,13 +31,13 @@
                                 <?= number_format($value['product_price']) ?>
                             </td>
                             <td>
-                                <?= number_format($value['product_quantity']) ?>
+                                <input type="number" product_id="<?= $value['product_id'] ?>" id="quantity<?= $value['product_id'] ?>" value="<?= number_format(abs($value['product_quantity'])) ?>" class="form-control quantity" style="width: 30%" min="1">
                             </td>
                             <td>
                                 <?= number_format($value['product_price']*$value['product_quantity']) ?>
                             </td>
                             <td>
-                                <a href="<?= Url::to(['site/delete','id'=>$value['product_id']]) ?>" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
+                                <a href="<?= Url::to(['site/delete','id'=>$value['product_id']]) ?>"><i class="icon ion-android-delete" style="font-size: 25px"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <th>Narxi</th>
-                        <th><?= number_format($total) ?></th>
+                        <th><?php if($total != '') echo number_format($total) ?></th>
                     </tr>
                     <tr>
                         <th>
@@ -70,24 +70,51 @@
 </section>
 <?php
 $script=<<< JS
-    $(document).on("click",".product_delete",function(){
-        var del=$(this).attr("id");
-        var action="delete";
+     $(document).on("keyup",".quantity",function(){
+        var product_id=$(this).attr("product_id");
+        var quantity=$(this).val();
+        //var action="quantity_change";
         $.ajax({
-            url:"index.php/shop/delete",
+            url:"/index.php/site/change",
             method:"GET",
             data:
             {
-                action:action,
-                del:del,
-            },
+                product_id:product_id,
+                quantity:quantity,
+            },  
             dataType:"json",
             success:function(data){
-              $("#cart_count").text(data.count);
-              $("#shop_result").html(data.output);
+                $("#shop_result").html(data.output);
             }
         })
     });
+    
+    $(document).on("keyup",".quantity",function(){
+        var quantity=$(this).val();
+        if(quantity < 1){
+            $(this).val(1);
+            alert("Mahsulotni soni 0 bolishi mumkun emas, yoki o'chiring");
+        }
+    })
+
+    $(document).on("change",".quantity",function(){
+        var product_id=$(this).attr("product_id");
+        var quantity=$(this).val();
+        //var action="quantity_change";
+        $.ajax({
+            url:"/index.php/site/change",
+            method:"GET",
+            data:
+            {
+                product_id:product_id,
+                quantity:quantity,
+            },  
+            dataType:"json",
+            success:function(data){
+                $("#shop_result").html(data.output);
+            }
+        })
+    })
 JS;
 $this->registerJs($script);
 ?>

@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\Image;
 
 /**
  * ProductPaginationController implements the CRUD actions for ProductPagination model.
@@ -68,7 +69,10 @@ class ProductPaginationController extends Controller
         $model = new ProductPagination();
 
         if ($model->load(Yii::$app->request->post())) {
-            $imageName=$model->name;
+            $image = Image::findOne(1);
+            $imageName=$image->sum;
+            $image->updateCounters(['sum' => 1]);
+
             $model->imageFile=UploadedFile::getInstance($model,'imageFile');
             if($model->imageFile->extension=='jpg' || $model->imageFile->extension=='png' || $model->imageFile->extension=='jpeg'){
                 $model->imageFile->saveAs('images/pro_pagination/'.$imageName.'.'.$model->imageFile->extension);

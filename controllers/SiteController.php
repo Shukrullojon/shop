@@ -280,6 +280,88 @@ class SiteController extends Controller
         return $this->render('checkout');
     }
     //Tahrirlash product delete and change product count
+    public function actionChange(){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $output='';
+        foreach ($_SESSION['shopping_cart'] as $key => $value){
+            if($_SESSION['shopping_cart'][$key]['product_id']==$_GET['product_id']){
+                $_SESSION['shopping_cart'][$key]['product_quantity']=$_GET['quantity'];
+            }
+        }
+        $number='';
+        $total='';
+        $output .= '
+            <div class="col-md-9">
+                <table class="table table-hover">
+                <tr>
+                    <th>Mahsulot</th>
+                    <th>Summa</th>
+                    <th>Soni</th>
+                    <th>Jami</th>
+                    <th>Action</th>
+                </tr>
+        ';
+        foreach($_SESSION['shopping_cart'] as $item=>$value){
+            $number += $value['product_quantity'];
+            $total += $value['product_quantity']*$value['product_price'];
+            $output.='
+                <tr>
+                    <td>
+                        <img src="/images/product/'. $value["product_image"] .'" style="height: 70px; width: 70px">
+                        <p style="display: inline-block">'.$value["product_name"].'</p>
+                    </td>
+                    <td>
+                        '. number_format($value["product_price"]).'
+                    </td>
+                    <td>
+                        <input type="number" product_id="'.$value["product_id"] .'" id="quantity'.$value["product_id"].'" value="'.abs($value["product_quantity"]).'" class="form-control quantity" style="width: 30%" min="1">
+                    </td>
+                    <td>
+                        '.number_format($value["product_price"]*$value["product_quantity"]) .'
+                    </td>
+                    <td>
+                        <a href="'. Url::to(["site/delete","id"=>$value["product_id"]]).'"><i class="icon ion-android-delete" style="color: red; font-size: 25px"></i></a>
+                    </td>
+                </tr>
+            ';
+        }
+        $output .= '
+                </table>
+            </div>
+        ';
+        $output .= '
+            <div class="col-md-3">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Jami</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>Mahsulot soni</th>
+                        <th>'. $number .'</th>
+                    </tr>
+                    <tr>
+                        <th>Narxi</th>
+                        <th>';
+                            if($total != "")
+                                $output .= '' . number_format($total) . '';
+
+                        $output .= '</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <a href="'. Url::to(["site/checkout"]) .'" class="btn btn-success">Rasmiylashtirish</a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+        ';
+        return [
+            'output'=>$output,
+        ];
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
