@@ -4,20 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Product */
+/* @var $model app\models\Client */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Clients', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="product-view">
+<div class="client-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('<<<<', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Qo\'shish', ['create', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -32,18 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'price',
-            'price_last',
-            'price_percent',
-            'together',
-            'title',
-            'description:ntext',
-            'image',
-            'category_id',
-            'like',
-            'count_view',
-            'number',
+            'first_name',
+            'last_name',
+            'phone_number',
+            'address:ntext',
+            'status',
+            'pay',
         ],
     ]) ?>
 

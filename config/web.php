@@ -81,6 +81,7 @@ $config = [
             'rbac/*',
             'gii/*',
             'product/*',
+            'client/*',
         ]
     ],
     'params' => $params,

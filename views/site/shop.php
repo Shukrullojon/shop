@@ -59,7 +59,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <a href="<?= Url::to(['site/checkout']) ?>" class="btn btn-success">Rasmiylashtirish</a>
+                            <a href="<?= Url::to(['client/create']) ?>" class="btn btn-success">Rasmiylashtirish</a>
                         </th>
                         <th></th>
                     </tr>
