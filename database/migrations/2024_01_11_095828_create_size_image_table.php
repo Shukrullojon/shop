@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('balls', function (Blueprint $table) {
+        Schema::create('size_image', function (Blueprint $table) {
             $table->id();
-            $table->string('model');
-            $table->string('table');
-            $table->unsignedBigInteger('model_id');
-            $table->tinyInteger('scores')->default(0);
-            $table->tinyInteger('coins')->default(0);
+            $table->unsignedBigInteger('size_id');
+            $table->unsignedBigInteger('image_id');
+            $table->float('count');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('balls');
+        Schema::dropIfExists('size_image');
     }
 };

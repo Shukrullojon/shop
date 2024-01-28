@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('grammers', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('day_id');
-            $table->string('name')->nullable();
-            $table->string('topic')->nullable();
-            $table->string('formula')->nullable();
-            $table->text('description')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->string('name');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('grammers');
+        Schema::dropIfExists('categories');
     }
 };

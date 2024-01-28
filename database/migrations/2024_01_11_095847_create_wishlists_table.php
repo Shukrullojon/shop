@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('results', function (Blueprint $table) {
+        Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
-            $table->string('model');
-            $table->unsignedBigInteger('model_id');
-            $table->string('table')->nullable();
+            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
-            $table->tinyInteger('is_done')->default(0);
-            $table->tinyInteger('scores')->default(0);
-            $table->tinyInteger('coins')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('results');
+        Schema::dropIfExists('wishlists');
     }
 };

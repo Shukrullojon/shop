@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EventUser extends Model
+class Carousel extends Model
 {
     use HasFactory;
 
-    protected $table = 'event_user';
+    protected $table = 'carousels';
 
     protected $guarded = [];
-
 }
