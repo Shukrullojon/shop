@@ -18,41 +18,11 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Rustam',
-                'email' => 'rustam@gmail.com',
-                'phone' => '996297725',
-                'password' => Hash::make('1272256a'),
-                //'token' => Str::uuid(),
-                'status' => 1
-            ],
-            [
                 'name' => 'Shukrullo',
                 'email' => 'shukrullobk@gmail.com',
                 'phone' => '993011798',
-                'password' => Hash::make('1272256a'),
-                //'token' => Str::uuid(),
-                'status' => 1
-            ],
-            [
-                'name' => 'Shukrullo3',
-                'email' => 'shukrullobk3@gmail.com',
-                'phone' => '993011799',
-                'password' => Hash::make('1272256a'),
-                //'token' => Str::uuid(),
-                'status' => 1
-            ],
-            [
-                'name' => 'Shukrullo4',
-                'email' => 'shukrullobk4@gmail.com',
-                'phone' => '993011888',
-                'password' => Hash::make('1a72256a'),
-                'status' => 1
-            ],
-            [
-                'name' => 'Shukrullo5',
-                'email' => 'shukrullobk5@gmail.com',
-                'phone' => '993011000',
-                'password' => Hash::make('1272250a'),
+                'password' => Hash::make('12345678'),
+                'token' => Str::uuid(),
                 'status' => 1
             ],
         ];
